@@ -1,21 +1,14 @@
 import React, { useState } from 'react';
-import { Button } from '@radix-ui/themes';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css'; // Підключаємо стилі для календаря
-
-// Функція для форматування дати у форматі DD.MM.YYYY
-const formatDate = (date) => {
-    if (!date) return '';
-    return new Date(date).toLocaleDateString('uk-UA'); // Формат дати для України
-};
+import { Box, Button, Text, Flex, Table } from '@radix-ui/themes';
+import ColumnEditor from './ColumnEditor';
+import TableRow from './TableRow';
 
 function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
     const [newTableName, setNewTableName] = useState('');
     const [columns, setColumns] = useState([{ name: '', type: 'string' }]);
-    const [editRowInfo, setEditRowInfo] = useState({ tableIndex: null, rowIndex: null }); // Зберігаємо індекс таблиці та рядка
+    const [editRowInfo, setEditRowInfo] = useState({ tableIndex: null, rowIndex: null });
     const [validationErrors, setValidationErrors] = useState({});
 
-    // Валідація значень рядка залежно від типу
     const validateValue = (value, type) => {
         switch (type) {
             case 'integer':
@@ -42,7 +35,7 @@ function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
             const newTable = {
                 name: newTableName,
                 columns,
-                rows: [] // Порожній рядок
+                rows: []
             };
             onAddTable(newTable);
             setNewTableName('');
@@ -50,18 +43,13 @@ function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
         }
     };
 
-    const handleAddColumn = () => {
-        setColumns([...columns, { name: '', type: 'string' }]);
-    };
-
-    // Додавання нового рядка
     const handleAddRow = (tableIndex) => {
         const newRow = {};
         tables[tableIndex].columns.forEach(col => {
             if (col.type === 'dateInvl') {
-                newRow[col.name] = { start: '', end: '' }; // Порожній інтервал дат
+                newRow[col.name] = { start: '', end: '' };
             } else {
-                newRow[col.name] = ''; // Порожній рядок для кожної колонки
+                newRow[col.name] = '';
             }
         });
 
@@ -70,14 +58,12 @@ function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
         onUpdateTable(updatedTables);
     };
 
-    // Видалення рядка
     const handleDeleteRow = (tableIndex, rowIndex) => {
         const updatedTables = [...tables];
-        updatedTables[tableIndex].rows.splice(rowIndex, 1); // Видаляємо рядок
+        updatedTables[tableIndex].rows.splice(rowIndex, 1);
         onUpdateTable(updatedTables);
     };
 
-    // Обробка зміни рядка
     const handleRowChange = (tableIndex, rowIndex, columnName, value) => {
         const updatedTables = [...tables];
         const column = tables[tableIndex].columns.find(col => col.name === columnName);
@@ -89,182 +75,90 @@ function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
                 [`${tableIndex}-${rowIndex}-${columnName}`]: error
             });
         } else {
-            // Видаляємо помилку для цього поля, якщо немає помилки
             const newErrors = { ...validationErrors };
             delete newErrors[`${tableIndex}-${rowIndex}-${columnName}`];
             setValidationErrors(newErrors);
         }
 
-        // Оновлюємо значення поля в рядку
         updatedTables[tableIndex].rows[rowIndex][columnName] = value;
         onUpdateTable(updatedTables);
     };
 
-    // Увімкнення режиму редагування для конкретного рядка в таблиці
     const handleEditRow = (tableIndex, rowIndex) => {
         setEditRowInfo({ tableIndex, rowIndex });
     };
 
-    // Завершення редагування рядка
     const handleSaveRow = () => {
-        setEditRowInfo({ tableIndex: null, rowIndex: null }); // Вимикаємо режим редагування
+        setEditRowInfo({ tableIndex: null, rowIndex: null });
     };
 
     return (
-        <div>
-            <h3>Create New Table</h3>
-            <input
-                type="text"
-                placeholder="New table name"
-                value={newTableName}
-                onChange={(e) => setNewTableName(e.target.value)}
-            />
-            <h4>Table Columns</h4>
-            {columns.map((col, index) => (
-                <div key={index}>
-                    <input
-                        type="text"
-                        placeholder="Column name"
-                        value={col.name}
-                        onChange={(e) => {
-                            const updatedColumns = [...columns];
-                            updatedColumns[index].name = e.target.value;
-                            setColumns(updatedColumns);
-                        }}
-                    />
-                    <select
-                        value={col.type}
-                        onChange={(e) => {
-                            const updatedColumns = [...columns];
-                            updatedColumns[index].type = e.target.value;
-                            setColumns(updatedColumns);
-                        }}
-                    >
-                        <option value="string">String</option>
-                        <option value="integer">Integer</option>
-                        <option value="real">Real</option>
-                        <option value="char">Char</option>
-                        <option value="date">Date</option>
-                        <option value="dateInvl">Date Interval</option>
-                    </select>
-                </div>
-            ))}
-            <Button onClick={handleAddColumn}>Add Column</Button>
-            <Button onClick={handleCreateTable}>Create Table</Button>
+        <Box p="4">
+            <Text as="h3" size="5">Create New Table</Text>
+            <Box mb="3">
+                <input
+                    type="text"
+                    placeholder="New table name"
+                    value={newTableName}
+                    onChange={(e) => setNewTableName(e.target.value)}
+                    style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc', marginRight: '8px' }}
+                />
+                <Button onClick={handleCreateTable} variant="solid" color="blue">Create Table</Button>
+            </Box>
+            <ColumnEditor columns={columns} setColumns={setColumns} />
 
-            <hr />
+            <hr style={{ margin: '20px 0' }} />
 
-            <h3>Existing Tables</h3>
+            <Text as="h3" size="5">Existing Tables</Text>
             {tables.length > 0 ? (
                 tables.map((table, tableIndex) => (
-                    <div key={tableIndex}>
-                        <h4>{table.name}</h4>
-                        <Button onClick={() => onDeleteTable(tableIndex)}>Delete Table</Button>
-                        <ul>
-                            {table.columns.map((col, colIndex) => (
-                                <li key={colIndex}>{col.name} ({col.type})</li>
-                            ))}
-                        </ul>
-
-                        <h5>Rows:</h5>
-                        <table border="1">
-                            <thead>
-                            <tr>
-                                {table.columns.map((col, colIndex) => (
-                                    <th key={colIndex}>{col.name}</th>
-                                ))}
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {table.rows.map((row, rowIndex) => (
-                                <tr key={rowIndex}>
+                    <Box key={tableIndex} mb="4">
+                        <Flex justify="between" align="center" mb="3">
+                            <Text as="h4" size="4">{table.name}</Text>
+                            <Button onClick={() => onDeleteTable(tableIndex)} variant="solid" color="red">
+                                Delete Table
+                            </Button>
+                        </Flex>
+                        <Table.Root>
+                            <Table.Header>
+                                <Table.Row>
                                     {table.columns.map((col, colIndex) => (
-                                        <td key={colIndex}>
-                                            {editRowInfo.tableIndex === tableIndex && editRowInfo.rowIndex === rowIndex ? (
-                                                <div>
-                                                    {/* Рендеримо різні типи полів */}
-                                                    {col.type === 'date' ? (
-                                                        <DatePicker
-                                                            selected={row[col.name] ? new Date(row[col.name]) : null}
-                                                            onChange={(date) =>
-                                                                handleRowChange(tableIndex, rowIndex, col.name, date)
-                                                            }
-                                                        />
-                                                    ) : col.type === 'dateInvl' ? (
-                                                        <>
-                                                            <label>Start: </label>
-                                                            <DatePicker
-                                                                selected={row[col.name]?.start ? new Date(row[col.name].start) : null}
-                                                                onChange={(date) =>
-                                                                    handleRowChange(tableIndex, rowIndex, col.name, {
-                                                                        ...row[col.name],
-                                                                        start: date
-                                                                    })
-                                                                }
-                                                            />
-                                                            <label>End: </label>
-                                                            <DatePicker
-                                                                selected={row[col.name]?.end ? new Date(row[col.name].end) : null}
-                                                                onChange={(date) =>
-                                                                    handleRowChange(tableIndex, rowIndex, col.name, {
-                                                                        ...row[col.name],
-                                                                        end: date
-                                                                    })
-                                                                }
-                                                            />
-                                                        </>
-                                                    ) : (
-                                                        <input
-                                                            type="text"
-                                                            value={row[col.name] || ''}
-                                                            onChange={(e) =>
-                                                                handleRowChange(tableIndex, rowIndex, col.name, e.target.value)
-                                                            }
-                                                        />
-                                                    )}
-                                                    {validationErrors[`${tableIndex}-${rowIndex}-${col.name}`] && (
-                                                        <p style={{ color: 'red' }}>
-                                                            {validationErrors[`${tableIndex}-${rowIndex}-${col.name}`]}
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            ) : (
-                                                <span>
-                                                        {col.type === 'date'
-                                                            ? formatDate(row[col.name])
-                                                            : col.type === 'dateInvl'
-                                                                ? `${formatDate(row[col.name]?.start)} - ${formatDate(row[col.name]?.end)}`
-                                                                : row[col.name]}
-                                                    </span>
-                                            )}
-                                        </td>
+                                        <Table.ColumnHeaderCell key={colIndex}>{col.name}</Table.ColumnHeaderCell>
                                     ))}
-                                    <td>
-                                        {editRowInfo.tableIndex === tableIndex && editRowInfo.rowIndex === rowIndex ? (
-                                            <Button onClick={handleSaveRow}>Save Row</Button>
-                                        ) : (
-                                            <>
-                                                <Button onClick={() => handleEditRow(tableIndex, rowIndex)}>Edit Row</Button>
-                                                <Button onClick={() => handleDeleteRow(tableIndex, rowIndex)}>Delete Row</Button>
-                                            </>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
-                            <tr>
-                                <td colSpan={table.columns.length + 1}>
-                                    <Button onClick={() => handleAddRow(tableIndex)}>Add Row</Button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                    <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {table.rows.map((row, rowIndex) => (
+                                    <TableRow
+                                        key={rowIndex}
+                                        tableIndex={tableIndex}
+                                        row={row}
+                                        rowIndex={rowIndex}
+                                        columns={table.columns}
+                                        editRowInfo={editRowInfo}
+                                        handleRowChange={handleRowChange}
+                                        handleEditRow={handleEditRow}
+                                        handleSaveRow={handleSaveRow}
+                                        handleDeleteRow={handleDeleteRow}
+                                        validationErrors={validationErrors}
+                                    />
+                                ))}
+                                <Table.Row>
+                                    <Table.Cell colSpan={table.columns.length + 1}>
+                                        <Button onClick={() => handleAddRow(tableIndex)} variant="outline">
+                                            Add Row
+                                        </Button>
+                                    </Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        </Table.Root>
+                    </Box>
                 ))
             ) : (
-                <p>No tables available</p>
+                <Text>No tables available</Text>
             )}
-        </div>
+        </Box>
     );
 }
 

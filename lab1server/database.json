@@ -25,10 +25,10 @@
           ],
           "rows": [
             {
-              "ряд": "asdff",
+              "ряд": "asdfffsdf",
               "циф": "31",
-              "рил": "1.1",
-              "чар": "р"
+              "рил": "2.123",
+              "чар": "h"
             },
             {
               "ряд": "аааааааааа",
@@ -162,6 +162,43 @@
               "shsdfhjsdfjw": "",
               "jwrtjrtj": "",
               "": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Database 3",
+      "tables": [
+        {
+          "name": "testing 1",
+          "columns": [
+            {
+              "name": "xzbdfsg",
+              "type": "string"
+            },
+            {
+              "name": "gsdfg",
+              "type": "date"
+            },
+            {
+              "name": "fsafsda",
+              "type": "integer"
+            },
+            {
+              "name": "zxcvzxcv",
+              "type": "dateInvl"
+            }
+          ],
+          "rows": [
+            {
+              "xzbdfsg": "gsdfgs",
+              "gsdfg": "2311-12-31T22:00:00.000Z",
+              "fsafsda": "4231",
+              "zxcvzxcv": {
+                "start": "",
+                "end": ""
+              }
             }
           ]
         }
