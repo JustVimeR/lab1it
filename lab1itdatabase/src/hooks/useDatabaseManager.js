@@ -1,17 +1,14 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// Логіка для роботи з базами даних
 const useDatabaseManager = () => {
     const [databases, setDatabases] = useState([]);
     const [activeDatabaseIndex, setActiveDatabaseIndex] = useState(0);
 
-    // Завантаження баз даних з сервера при рендері
     useEffect(() => {
         loadDatabases();
     }, []);
 
-    // Завантаження баз даних з сервера
     const loadDatabases = async () => {
         try {
             const response = await axios.get('http://localhost:3001/load-database');
@@ -21,7 +18,6 @@ const useDatabaseManager = () => {
         }
     };
 
-    // Створення нової бази даних
     const handleCreateDatabase = async (name) => {
         const newDatabase = { name, tables: [] };
         try {
@@ -33,7 +29,6 @@ const useDatabaseManager = () => {
         }
     };
 
-    // Оновлення бази даних на сервері
     const saveDatabase = async (updatedDatabase) => {
         try {
             await axios.post('http://localhost:3001/save-database', { database: updatedDatabase });
@@ -42,7 +37,6 @@ const useDatabaseManager = () => {
         }
     };
 
-    // Додавання нової таблиці в активну базу
     const handleAddTableToActiveDatabase = (newTable) => {
         const updatedDatabases = [...databases];
         updatedDatabases[activeDatabaseIndex].tables.push(newTable);
@@ -50,7 +44,6 @@ const useDatabaseManager = () => {
         saveDatabase(updatedDatabases[activeDatabaseIndex]);
     };
 
-    // Видалення таблиці
     const handleDeleteTable = (tableIndex) => {
         const updatedDatabases = [...databases];
         updatedDatabases[activeDatabaseIndex].tables = updatedDatabases[activeDatabaseIndex].tables.filter(
@@ -60,7 +53,6 @@ const useDatabaseManager = () => {
         saveDatabase(updatedDatabases[activeDatabaseIndex]);
     };
 
-    // Оновлення таблиць
     const handleUpdateTables = (updatedTables) => {
         const updatedDatabases = [...databases];
         updatedDatabases[activeDatabaseIndex].tables = updatedTables;

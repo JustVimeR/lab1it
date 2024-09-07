@@ -82,12 +82,14 @@ function TableRow({ tableIndex, row, rowIndex, columns, editRowInfo, handleRowCh
                             {col.type === 'date'
                                 ? formatDate(row[col.name])
                                 : col.type === 'dateInvl'
-                                    ? `${formatDate(row[col.name]?.start)} - ${formatDate(row[col.name]?.end)}`
+                                    ? `${row[col.name]?.start ? formatDate(row[col.name].start) : ''} - ${row[col.name]?.end ? formatDate(row[col.name].end) : ''}`
                                     : row[col.name]}
                         </Text>
                     )}
                 </Table.Cell>
+
             ))}
+
             <Table.Cell>
                 {editRowInfo.tableIndex === tableIndex && editRowInfo.rowIndex === rowIndex ? (
                     <Button onClick={handleSaveRow} variant="solid" color="green">

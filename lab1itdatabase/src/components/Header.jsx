@@ -9,20 +9,18 @@ function Header({ onCreateDatabase, databases, activeDatabaseIndex, setActiveDat
     const handleCreateDatabase = () => {
         if (dbName.trim() !== '') {
             onCreateDatabase(dbName);
-            setDbName(''); // Очищуємо поле після створення
-            setIsDialogOpen(false); // Закриваємо модальне вікно
+            setDbName('');
+            setIsDialogOpen(false);
         }
     };
 
     return (
         <Container position={'sticky'} top={0} maxWidth='100%'>
             <Flex gap='4px' justify="between" align="center">
-                {/* Кнопки управління */}
                 <Flex gap='4px'>
                     <Button onClick={() => setIsDialogOpen(true)}>Create new DB</Button>
                 </Flex>
 
-                {/* Вкладки для перемикання між базами даних */}
                 <Flex gap="8px">
                     {databases.length > 0 ? (
                         databases.map((db, index) => (
@@ -50,10 +48,49 @@ function Header({ onCreateDatabase, databases, activeDatabaseIndex, setActiveDat
                         placeholder="Database Name"
                         value={dbName}
                         onChange={(e) => setDbName(e.target.value)}
+                        style={{
+                            width: '20%',
+                            padding: '10px',
+                            borderRadius: '4px',
+                            border: '1px solid #ccc',
+                            marginBottom: '15px',
+                            fontSize: '16px'
+                        }}
                     />
-                    <Flex gap='8px' mt='10px'>
-                        <Button onClick={handleCreateDatabase}>Create</Button>
-                        <Dialog.Close>Cancel</Dialog.Close>
+                    <Flex gap='8px' mt='10px' >
+                        <Button
+                            onClick={handleCreateDatabase}
+                            style={{
+                                backgroundColor: '#4CAF50',
+                                color: 'white',
+                                padding: '8px 16px',
+                                borderRadius: '4px',
+                                fontWeight: 'bold',
+                                cursor: 'pointer',
+                                border: 'none',
+                                transition: 'background-color 0.3s',
+                            }}
+                            onPointerEnter={(e) => e.target.style.backgroundColor = '#45a049'}
+                            onPointerLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}
+                        >
+                            Create
+                        </Button>
+                        <Button
+                            style={{
+                                backgroundColor: '#f44336',
+                                color: 'white',
+                                padding: '8px 16px',
+                                borderRadius: '4px',
+                                fontWeight: 'bold',
+                                cursor: 'pointer',
+                                border: 'none',
+                                transition: 'background-color 0.3s',
+                            }}
+                            onPointerEnter={(e) => e.target.style.backgroundColor = '#d32f2f'}
+                            onPointerLeave={(e) => e.target.style.backgroundColor = '#f44336'}
+                        >
+                            Cancel
+                        </Button>
                     </Flex>
                 </Dialog.Content>
             </Dialog.Root>

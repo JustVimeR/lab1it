@@ -1,7 +1,10 @@
-import React from 'react';
-import { Box, Flex, Button, Text, Select } from '@radix-ui/themes';
+import React, { useState } from 'react';
+import { Box, Flex, Button, Text } from '@radix-ui/themes';
+import { DialogClose } from '@radix-ui/react-dialog';
 
-function ColumnEditor({ columns, setColumns }) {
+function ColumnEditor({ columns, setColumns, onAddTable }) {
+    const [newTableName, setNewTableName] = useState('');
+
     const handleAddColumn = () => {
         setColumns([...columns, { name: '', type: 'string' }]);
     };
@@ -12,9 +15,37 @@ function ColumnEditor({ columns, setColumns }) {
         setColumns(updatedColumns);
     };
 
+    const handleDeleteColumn = (index) => {
+        const updatedColumns = columns.filter((_, colIndex) => colIndex !== index);
+        setColumns(updatedColumns);
+    };
+
+    const handleCreateTable = () => {
+        if (newTableName.trim() !== '') {
+            const newTable = {
+                name: newTableName,
+                columns,
+                rows: []
+            };
+            onAddTable(newTable);
+            setNewTableName('');
+            setColumns([{ name: '', type: 'string' }]);
+        }
+    };
+
     return (
         <Box>
-            <Text as="h4" size="4" mb="3">Table Columns</Text>
+            <Text as="h3" size="5">Create New Table</Text>
+            <Box mb="3">
+                <input
+                    type="text"
+                    placeholder="New table name"
+                    value={newTableName}
+                    onChange={(e) => setNewTableName(e.target.value)}
+                    style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc', marginRight: '8px' }}
+                />
+            </Box>
+            <Text as="h4" size="4">Table Columns</Text>
             {columns.map((col, index) => (
                 <Flex key={index} align="center" gap="3" mb="2">
                     <input
@@ -47,11 +78,22 @@ function ColumnEditor({ columns, setColumns }) {
                         <option value="date">Date</option>
                         <option value="dateInvl">Date Interval</option>
                     </select>
+                    <Button variant="solid" color="red" size="2" onClick={() => handleDeleteColumn(index)}>
+                        Delete
+                    </Button>
                 </Flex>
             ))}
-            <Button variant="solid" onClick={handleAddColumn} color="green" size="2">
-                Add Column
-            </Button>
+            <Flex direction={'row'} gap={'4px'}>
+                <Button variant="solid" onClick={handleAddColumn} color="green" size="2">
+                    Add Column
+                </Button>
+                <DialogClose asChild>
+                    <Button onClick={handleCreateTable} variant="solid" color="blue">Create Table</Button>
+                </DialogClose>
+                <DialogClose asChild>
+                    <Button variant="solid" color="red">Close</Button>
+                </DialogClose>
+            </Flex>
         </Box>
     );
 }

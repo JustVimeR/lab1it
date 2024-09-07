@@ -3,7 +3,6 @@ import { Table } from "@radix-ui/themes";
 import * as Dialog from '@radix-ui/react-dialog';
 import { saveToLocalStorage } from '../utils/localStorageUtils';
 
-// Функція для валідації типів полів
 const validateField = (value, type) => {
     switch (type) {
         case 'integer':
@@ -26,12 +25,10 @@ function MainTable({ tableData = { columns: [], rows: [] }, onAddRow, tableIndex
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [errors, setErrors] = useState({});
 
-    // Оновлюємо функцію додавання рядка з валідацією
     const handleAddRow = () => {
         let isValid = true;
         const newErrors = {};
 
-        // Валідація нових даних
         tableData.columns.forEach((col) => {
             const validation = validateField(newRow[col.name], col.type);
             if (validation !== true) {
@@ -40,13 +37,12 @@ function MainTable({ tableData = { columns: [], rows: [] }, onAddRow, tableIndex
             }
         });
 
-        // Якщо дані валідні, додаємо рядок
         if (isValid) {
             onAddRow(newRow);
-            setNewRow({}); // Очищуємо поля після додавання
-            setErrors({}); // Очищуємо помилки після додавання
+            setNewRow({});
+            setErrors({});
         } else {
-            setErrors(newErrors); // Встановлюємо помилки, якщо валідація не пройдена
+            setErrors(newErrors);
         }
     };
 
@@ -60,7 +56,6 @@ function MainTable({ tableData = { columns: [], rows: [] }, onAddRow, tableIndex
         let isValid = true;
         const newErrors = {};
 
-        // Перевірка кожного поля на валідацію
         tableData.columns.forEach((col) => {
             const validation = validateField(editData[col.name], col.type);
             if (validation !== true) {
@@ -118,7 +113,6 @@ function MainTable({ tableData = { columns: [], rows: [] }, onAddRow, tableIndex
             </Table.Root>
             <button onClick={handleAddRow}>Add Row</button>
 
-            {/* Модальне вікно для редагування */}
             <Dialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <Dialog.Overlay />
                 <Dialog.Content>
