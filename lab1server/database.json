@@ -1,0 +1,171 @@
+{
+  "databases": [
+    {
+      "name": "Database1",
+      "tables": [
+        {
+          "name": "Тест1",
+          "columns": [
+            {
+              "name": "ряд",
+              "type": "string"
+            },
+            {
+              "name": "циф",
+              "type": "integer"
+            },
+            {
+              "name": "рил",
+              "type": "real"
+            },
+            {
+              "name": "чар",
+              "type": "char"
+            }
+          ],
+          "rows": [
+            {
+              "ряд": "asdff",
+              "циф": "31",
+              "рил": "1.1",
+              "чар": "р"
+            },
+            {
+              "ряд": "аааааааааа",
+              "циф": "124",
+              "рил": "1.1",
+              "чар": "п"
+            }
+          ]
+        },
+        {
+          "name": "тест2",
+          "columns": [
+            {
+              "name": "dsfgdfsg",
+              "type": "char"
+            },
+            {
+              "name": "dsfgxzcbv",
+              "type": "string"
+            },
+            {
+              "name": "zxcvzxc",
+              "type": "real"
+            },
+            {
+              "name": "gsgad",
+              "type": "integer"
+            }
+          ],
+          "rows": [
+            {
+              "dsfgdfsg": "z",
+              "dsfgxzcbv": "asdgasa",
+              "zxcvzxc": "4.1",
+              "gsgad": "412"
+            }
+          ]
+        },
+        {
+          "name": "time",
+          "columns": [
+            {
+              "name": "date",
+              "type": "date"
+            },
+            {
+              "name": "date interval",
+              "type": "dateInvl"
+            }
+          ],
+          "rows": [
+            {
+              "date": "2024-09-18T21:00:00.000Z",
+              "date interval": {
+                "start": "2024-09-25T21:00:00.000Z",
+                "end": "2024-10-04T21:00:00.000Z"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Database2",
+      "tables": [
+        {
+          "name": "czxc",
+          "columns": [
+            {
+              "name": "zxczxc",
+              "type": "string"
+            },
+            {
+              "name": "zxvzxv",
+              "type": "string"
+            },
+            {
+              "name": "zxgcsdz",
+              "type": "char"
+            },
+            {
+              "name": "qweywe",
+              "type": "char"
+            },
+            {
+              "name": "hgasdfhsdfa",
+              "type": "string"
+            },
+            {
+              "name": "sdfhsdrfhwe",
+              "type": "char"
+            },
+            {
+              "name": "hsdfhsdfh",
+              "type": "real"
+            },
+            {
+              "name": "shsdfhjsdfjw",
+              "type": "string"
+            },
+            {
+              "name": "jwrtjrtj",
+              "type": "integer"
+            },
+            {
+              "name": "",
+              "type": "integer"
+            }
+          ],
+          "rows": [
+            {
+              "zxczxc": "cghfg",
+              "zxvzxv": "hfghd",
+              "zxgcsdz": "h",
+              "qweywe": "h",
+              "hgasdfhsdfa": "sdfgbcxv",
+              "sdfhsdrfhwe": "g",
+              "hsdfhsdfh": "3.112",
+              "shsdfhjsdfjw": "vxzcvxc",
+              "jwrtjrtj": "6216",
+              "": ""
+            },
+            {
+              "zxczxc": "афіваів",
+              "zxvzxv": "афіваі",
+              "zxgcsdz": "п",
+              "qweywe": "п",
+              "hgasdfhsdfa": "",
+              "sdfhsdrfhwe": "",
+              "hsdfhsdfh": "",
+              "shsdfhjsdfjw": "",
+              "jwrtjrtj": "",
+              "": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
