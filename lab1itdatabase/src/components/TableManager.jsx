@@ -166,7 +166,9 @@ function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
             {tables.length > 0 ? (
                 <>
                     <Flex gap="4">
+                    
                     <select
+                        data-testid="selectTable1"
                         value={selectedTable1 || ''}
                         onChange={(e) => setSelectedTable1(e.target.value)}
                         style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
@@ -178,7 +180,9 @@ function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
                             </option>
                         ))}
                     </select>
+                    
                     <select
+                        data-testid="selectTable2"
                         value={selectedTable2 || ''}
                         onChange={(e) => setSelectedTable2(e.target.value)}
                         style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
@@ -225,7 +229,7 @@ function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
                     {tables.map((table, tableIndex) => (
                         <Box key={tableIndex} mb="4">
                             <Flex justify="between" align="center" mb="3">
-                                <Text as="h4" size="4">{table.name}</Text>
+                                <Text as="h4" size="4" data-testid={`table-header-${table.name}`}>{table.name}</Text>
                                 <Button onClick={() => onDeleteTable(tableIndex)} variant="solid" color="red">
                                     Delete Table
                                 </Button>
