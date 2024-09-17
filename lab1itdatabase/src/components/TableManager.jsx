@@ -166,38 +166,31 @@ function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
             {tables.length > 0 ? (
                 <>
                     <Flex gap="4">
-                        <select
-                            value={selectedTable1 || ''}
-                            onChange={(e) => setSelectedTable1(e.target.value)}
-                            style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
-                        >
-                            <option value="">Select Table 1</option>
-                            {tables
-                                .filter((table) =>
-                                    table.columns.every((col) => col.type !== 'date' && col.type !== 'dateInvl')
-                                )
-                                .map((table, index) => (
-                                    <option key={index} value={index}>
-                                        {table.name}
-                                    </option>
-                                ))}
-                        </select>
-                        <select
-                            value={selectedTable2 || ''}
-                            onChange={(e) => setSelectedTable2(e.target.value)}
-                            style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
-                        >
-                            <option value="">Select Table 2</option>
-                            {tables
-                                .filter((table) =>
-                                    table.columns.every((col) => col.type !== 'date' && col.type !== 'dateInvl')
-                                )
-                                .map((table, index) => (
-                                    <option key={index} value={index}>
-                                        {table.name}
-                                    </option>
-                                ))}
-                        </select>
+                    <select
+                        value={selectedTable1 || ''}
+                        onChange={(e) => setSelectedTable1(e.target.value)}
+                        style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                    >
+                        <option value="">Select Table 1</option>
+                        {tables.map((table, index) => (
+                            <option key={index} value={index}>
+                                {table.name}
+                            </option>
+                        ))}
+                    </select>
+                    <select
+                        value={selectedTable2 || ''}
+                        onChange={(e) => setSelectedTable2(e.target.value)}
+                        style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                    >
+                        <option value="">Select Table 2</option>
+                        {tables.map((table, index) => (
+                            <option key={index} value={index}>
+                                {table.name}
+                            </option>
+                        ))}
+                    </select>
+
                         <Button onClick={handleCartesianProduct} variant="solid" color="blue">
                             Прямий добуток
                         </Button>
