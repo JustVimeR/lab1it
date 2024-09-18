@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+//Ne uzabelne
 function CreateTableForm({ onCreateTable }) {
     const [tableName, setTableName] = useState('');
     const [columns, setColumns] = useState([{ name: '', type: 'string' }]);

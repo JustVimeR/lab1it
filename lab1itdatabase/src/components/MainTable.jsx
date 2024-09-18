@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Table } from "@radix-ui/themes";
 import * as Dialog from '@radix-ui/react-dialog';
 import { saveToLocalStorage } from '../utils/localStorageUtils';
-
+//Ne uzabelne
 const validateField = (value, type) => {
     switch (type) {
         case 'integer':
