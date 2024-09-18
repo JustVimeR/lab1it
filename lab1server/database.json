@@ -136,6 +136,69 @@
               "Name": "sdfcnxcvncvxn"
             }
           ]
+        },
+        {
+          "name": "тест2_тайм_Прямий добуток",
+          "columns": [
+            {
+              "name": "тест2_dsfgdfsg",
+              "type": "char"
+            },
+            {
+              "name": "тест2_dsfgxzcbv",
+              "type": "string"
+            },
+            {
+              "name": "тест2_zxcvzxc",
+              "type": "real"
+            },
+            {
+              "name": "тест2_gsgad",
+              "type": "integer"
+            },
+            {
+              "name": "тайм_аіва",
+              "type": "date"
+            },
+            {
+              "name": "тайм_мчсмчс",
+              "type": "string"
+            }
+          ],
+          "rows": [
+            {
+              "тест2_dsfgdfsg": "z",
+              "тест2_dsfgxzcbv": "asdgasa",
+              "тест2_zxcvzxc": "4.1",
+              "тест2_gsgad": "412",
+              "тайм_аіва": "2024-09-17T21:00:00.000Z",
+              "тайм_мчсмчс": "ріврваі"
+            },
+            {
+              "тест2_dsfgdfsg": "z",
+              "тест2_dsfgxzcbv": "asdgasa",
+              "тест2_zxcvzxc": "4.1",
+              "тест2_gsgad": "412",
+              "тайм_аіва": "2024-09-10T21:00:00.000Z",
+              "тайм_мчсмчс": "пвіапвіа"
+            },
+            {
+              "тест2_dsfgdfsg": "ч",
+              "тест2_dsfgxzcbv": "уецуе",
+              "тест2_zxcvzxc": "2.1",
+              "тест2_gsgad": "5235",
+              "тайм_аіва": "2024-09-17T21:00:00.000Z",
+              "тайм_мчсмчс": "ріврваі"
+            },
+            {
+              "тест2_dsfgdfsg": "ч",
+              "тест2_dsfgxzcbv": "уецуе",
+              "тест2_zxcvzxc": "2.1",
+              "тест2_gsgad": "5235",
+              "тайм_аіва": "2024-09-10T21:00:00.000Z",
+              "тайм_мчсмчс": "пвіапвіа"
+            }
+          ]
         }
       ]
     },
@@ -207,6 +270,52 @@
               "zxcvzxcv": {
                 "start": "2024-09-22T21:00:00.000Z",
                 "end": "2024-09-22T21:00:00.000Z"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fsdfsdf",
+      "tables": [
+        {
+          "name": "Test",
+          "columns": [
+            {
+              "name": "Name",
+              "type": "string"
+            },
+            {
+              "name": "Class",
+              "type": "integer"
+            },
+            {
+              "name": "Mark",
+              "type": "real"
+            },
+            {
+              "name": "Class",
+              "type": "char"
+            },
+            {
+              "name": "Date",
+              "type": "date"
+            },
+            {
+              "name": "DataInt",
+              "type": "dateInvl"
+            }
+          ],
+          "rows": [
+            {
+              "Name": "Yarik",
+              "Class": "523523",
+              "Mark": "3.123",
+              "Date": "2024-09-19T21:00:00.000Z",
+              "DataInt": {
+                "start": "2024-09-29T21:00:00.000Z",
+                "end": "2024-09-23T21:00:00.000Z"
               }
             }
           ]

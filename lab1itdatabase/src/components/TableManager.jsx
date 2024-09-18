@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, Text, Flex, Table } from '@radix-ui/themes';
-import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogClose } from '@radix-ui/react-dialog';
+import { Dialog, DialogTrigger, DialogContent, DialogTitle } from '@radix-ui/react-dialog';
 import ColumnEditor from './ColumnEditor';
 import TableRow from './TableRow';
 
