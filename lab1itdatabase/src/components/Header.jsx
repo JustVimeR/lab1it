@@ -38,7 +38,6 @@ function Header({ onCreateDatabase, databases, activeDatabaseIndex, setActiveDat
                 </Flex>
             </Flex>
 
-            {/* Модальне вікно для створення бази даних */}
             <Dialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <Dialog.Overlay />
                 <Dialog.Content>

@@ -143,77 +143,6 @@
       "name": "Database2",
       "tables": [
         {
-          "name": "czxc",
-          "columns": [
-            {
-              "name": "zxczxc",
-              "type": "string"
-            },
-            {
-              "name": "zxvzxv",
-              "type": "string"
-            },
-            {
-              "name": "zxgcsdz",
-              "type": "char"
-            },
-            {
-              "name": "qweywe",
-              "type": "char"
-            },
-            {
-              "name": "hgasdfhsdfa",
-              "type": "string"
-            },
-            {
-              "name": "sdfhsdrfhwe",
-              "type": "char"
-            },
-            {
-              "name": "hsdfhsdfh",
-              "type": "real"
-            },
-            {
-              "name": "shsdfhjsdfjw",
-              "type": "string"
-            },
-            {
-              "name": "jwrtjrtj",
-              "type": "integer"
-            },
-            {
-              "name": "",
-              "type": "integer"
-            }
-          ],
-          "rows": [
-            {
-              "zxczxc": "cghfg",
-              "zxvzxv": "hfghd",
-              "zxgcsdz": "h",
-              "qweywe": "h",
-              "hgasdfhsdfa": "sdfgbcxv",
-              "sdfhsdrfhwe": "g",
-              "hsdfhsdfh": "3.112",
-              "shsdfhjsdfjw": "vxzcvxc",
-              "jwrtjrtj": "6216",
-              "": ""
-            },
-            {
-              "zxczxc": "афіваів",
-              "zxvzxv": "афіваі",
-              "zxgcsdz": "п",
-              "qweywe": "п",
-              "hgasdfhsdfa": "",
-              "sdfhsdrfhwe": "",
-              "hsdfhsdfh": "",
-              "shsdfhjsdfjw": "",
-              "jwrtjrtj": "",
-              "": ""
-            }
-          ]
-        },
-        {
           "name": "іячсмч",
           "columns": [
             {
@@ -267,8 +196,17 @@
               "gsdfg": "2311-12-31T22:00:00.000Z",
               "fsafsda": "4231",
               "zxcvzxcv": {
-                "start": "",
-                "end": ""
+                "start": "2024-09-08T21:00:00.000Z",
+                "end": "2024-09-19T21:00:00.000Z"
+              }
+            },
+            {
+              "xzbdfsg": "cbxvbcxvb",
+              "gsdfg": "2024-09-09T21:00:00.000Z",
+              "fsafsda": "422",
+              "zxcvzxcv": {
+                "start": "2024-09-22T21:00:00.000Z",
+                "end": "2024-09-22T21:00:00.000Z"
               }
             }
           ]
