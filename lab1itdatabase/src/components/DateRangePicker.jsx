@@ -26,6 +26,14 @@ function DateRangePicker({
 				dateFormat="dd.MM.yyyy"
 				className="date-picker"
 				popperPlacement="auto"
+				popperModifiers={[
+					{
+						name: "preventOverflow",
+						options: {
+							boundary: "viewport",
+						},
+					},
+				]}
 			/>
 			<Text>End:</Text>
 			<DatePicker
@@ -35,6 +43,14 @@ function DateRangePicker({
 				className="date-picker"
 				popperPlacement="auto"
 				minDate={startDate ? new Date(startDate) : null}
+				popperModifiers={[
+					{
+						name: "preventOverflow",
+						options: {
+							boundary: "viewport",
+						},
+					},
+				]}
 			/>
 			{validationError && (
 				<Text color="red" size="1">

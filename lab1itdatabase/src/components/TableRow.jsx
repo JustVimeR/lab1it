@@ -52,6 +52,14 @@ function TableRow({
 									dateFormat="dd.MM.yyyy"
 									className="date-picker"
 									popperPlacement="auto"
+									popperModifiers={[
+										{
+											name: "preventOverflow",
+											options: {
+												boundary: "viewport",
+											},
+										},
+									]}
 								/>
 							) : col.type === "dateInvl" ? (
 								<DateRangePicker
