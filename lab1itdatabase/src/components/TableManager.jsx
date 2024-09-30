@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Text, Flex, Table } from "@radix-ui/themes";
+import { Box, Button, Text, Flex } from "@radix-ui/themes";
 import {
 	Dialog,
 	DialogTrigger,
@@ -7,7 +7,9 @@ import {
 	DialogTitle,
 } from "@radix-ui/react-dialog";
 import ColumnEditor from "./ColumnEditor";
-import TableRow from "./TableRow";
+import TableList from "./TableList";
+import { handleCartesianProduct } from "../hooks/cartesianProduct";
+import { validateValue } from "../utils/validation";
 
 function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
 	const [columns, setColumns] = useState([{ name: "", type: "string" }]);
@@ -74,89 +76,6 @@ function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
 
 	const handleSaveRow = () => {
 		setEditRowInfo({ tableIndex: null, rowIndex: null });
-	};
-
-	const validateValue = (value, type) => {
-		switch (type) {
-			case "integer":
-				return Number.isInteger(Number(value)) ? null : "Must be an integer";
-			case "real":
-				return !isNaN(parseFloat(value)) ? null : "Must be a real number";
-			case "char":
-				return value.length === 1 ? null : "Must be a single character";
-			case "string":
-				return typeof value === "string" ? null : "Must be a string";
-			case "date":
-				return value instanceof Date && !isNaN(value.getTime())
-					? null
-					: "Must be a valid date";
-			case "dateInvl":
-				return value.start instanceof Date &&
-					value.end instanceof Date &&
-					!isNaN(value.start.getTime()) &&
-					!isNaN(value.end.getTime())
-					? null
-					: "Must be a valid date interval";
-			default:
-				return null;
-		}
-	};
-
-	const handleCartesianProduct = () => {
-		if (selectedTable1 !== null && selectedTable2 !== null) {
-			const table1 = tables[selectedTable1];
-			const table2 = tables[selectedTable2];
-
-			if (table1.rows.length === 0 || table2.rows.length === 0) {
-				alert("Обидві таблиці повинні мати рядки для об’єднання!");
-				return;
-			}
-
-			const resultColumns = [
-				...table1.columns.map((col) => ({
-					...col,
-					name: `${table1.name}_${col.name}`,
-				})),
-				...table2.columns.map((col) => ({
-					...col,
-					name: `${table2.name}_${col.name}`,
-				})),
-			];
-
-			const resultRows = [];
-
-			for (let row1 of table1.rows) {
-				for (let row2 of table2.rows) {
-					const combinedRow = {
-						...Object.fromEntries(
-							Object.entries(row1).map(([key, value]) => [
-								`${table1.name}_${key}`,
-								value,
-							])
-						),
-						...Object.fromEntries(
-							Object.entries(row2).map(([key, value]) => [
-								`${table2.name}_${key}`,
-								value,
-							])
-						),
-					};
-					resultRows.push(combinedRow);
-				}
-			}
-
-			const resultTable = {
-				name: `${table1.name}_${table2.name}_Прямий добуток`,
-				columns: resultColumns,
-				rows: resultRows,
-			};
-
-			const updatedTables = [...tables, resultTable];
-			onUpdateTable(updatedTables);
-			setSelectedTable1(null);
-			setSelectedTable2(null);
-			setCartesianProductResult(null);
-		}
 	};
 
 	return (
@@ -236,7 +155,17 @@ function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
 						</select>
 
 						<Button
-							onClick={handleCartesianProduct}
+							onClick={() =>
+								handleCartesianProduct(
+									tables,
+									selectedTable1,
+									selectedTable2,
+									onUpdateTable,
+									setSelectedTable1,
+									setSelectedTable2,
+									setCartesianProductResult
+								)
+							}
 							variant="solid"
 							color="blue"
 						>
@@ -247,88 +176,31 @@ function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
 					{cartesianProductResult && (
 						<Box mt="4">
 							<Text as="h4">{cartesianProductResult.name}</Text>
-							<Table.Root>
-								<Table.Header>
-									<Table.Row>
-										{cartesianProductResult.columns.map((col, colIndex) => (
-											<Table.ColumnHeaderCell key={colIndex}>
-												{col.name}
-											</Table.ColumnHeaderCell>
-										))}
-									</Table.Row>
-								</Table.Header>
-								<Table.Body>
-									{cartesianProductResult.rows.map((row, rowIndex) => (
-										<Table.Row key={rowIndex}>
-											{cartesianProductResult.columns.map((col, colIndex) => (
-												<Table.Cell key={colIndex}>{row[col.name]}</Table.Cell>
-											))}
-										</Table.Row>
-									))}
-								</Table.Body>
-							</Table.Root>
+							<TableList
+								tables={[cartesianProductResult]}
+								editRowInfo={editRowInfo}
+								handleRowChange={handleRowChange}
+								handleEditRow={handleEditRow}
+								handleSaveRow={handleSaveRow}
+								handleDeleteRow={handleDeleteRow}
+								handleAddRow={handleAddRow}
+								validationErrors={validationErrors}
+								onDeleteTable={onDeleteTable}
+							/>
 						</Box>
 					)}
 
-					{tables.map((table, tableIndex) => (
-						<Box key={tableIndex} mb="4">
-							<Flex justify="between" align="center" mb="3">
-								<Text
-									as="h4"
-									size="4"
-									data-testid={`table-header-${table.name}`}
-								>
-									{table.name}
-								</Text>
-								<Button
-									onClick={() => onDeleteTable(tableIndex)}
-									variant="solid"
-									color="red"
-								>
-									Delete Table
-								</Button>
-							</Flex>
-							<Table.Root>
-								<Table.Header>
-									<Table.Row>
-										{table.columns.map((col, colIndex) => (
-											<Table.ColumnHeaderCell key={colIndex}>
-												{col.name}
-											</Table.ColumnHeaderCell>
-										))}
-										<Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
-									</Table.Row>
-								</Table.Header>
-								<Table.Body>
-									{table.rows.map((row, rowIndex) => (
-										<TableRow
-											key={rowIndex}
-											tableIndex={tableIndex}
-											row={row}
-											rowIndex={rowIndex}
-											columns={table.columns}
-											editRowInfo={editRowInfo}
-											handleRowChange={handleRowChange}
-											handleEditRow={handleEditRow}
-											handleSaveRow={handleSaveRow}
-											handleDeleteRow={handleDeleteRow}
-											validationErrors={validationErrors}
-										/>
-									))}
-									<Table.Row>
-										<Table.Cell colSpan={table.columns.length + 1}>
-											<Button
-												onClick={() => handleAddRow(tableIndex)}
-												variant="outline"
-											>
-												Add Row
-											</Button>
-										</Table.Cell>
-									</Table.Row>
-								</Table.Body>
-							</Table.Root>
-						</Box>
-					))}
+					<TableList
+						tables={tables}
+						editRowInfo={editRowInfo}
+						handleRowChange={handleRowChange}
+						handleEditRow={handleEditRow}
+						handleSaveRow={handleSaveRow}
+						handleDeleteRow={handleDeleteRow}
+						handleAddRow={handleAddRow}
+						validationErrors={validationErrors}
+						onDeleteTable={onDeleteTable}
+					/>
 				</>
 			) : (
 				<Text>No tables available</Text>
