@@ -199,25 +199,6 @@
               "тайм_мчсмчс": "пвіапвіа"
             }
           ]
-        },
-        {
-          "name": "gsdfgsd",
-          "columns": [
-            {
-              "name": "sdgsdg",
-              "type": "string"
-            },
-            {
-              "name": "dsgsdfgsd",
-              "type": "string"
-            }
-          ],
-          "rows": [
-            {
-              "sdgsdg": "gsdfgsdf",
-              "dsgsdfgsd": "gdsfgdsfg"
-            }
-          ]
         }
       ]
     },

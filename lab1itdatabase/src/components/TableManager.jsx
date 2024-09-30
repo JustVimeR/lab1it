@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import { Box, Button, Text, Flex } from "@radix-ui/themes";
-import {
-	Dialog,
-	DialogTrigger,
-	DialogContent,
-	DialogTitle,
-} from "@radix-ui/react-dialog";
-import ColumnEditor from "./ColumnEditor";
+import { Box, Text } from "@radix-ui/themes";
 import TableList from "./TableList";
+import TableSelector from "./TableSelector";
+import CreateTableDialog from "./CreateTableDialog";
+import CartesianProductResult from "./CartesianProductResult";
 import { handleCartesianProduct } from "../hooks/cartesianProduct";
 import { validateValue } from "../utils/validation";
 
@@ -78,117 +74,46 @@ function TableManager({ tables, onAddTable, onDeleteTable, onUpdateTable }) {
 		setEditRowInfo({ tableIndex: null, rowIndex: null });
 	};
 
+	const handleCartesianProductClick = () => {
+		handleCartesianProduct(
+			tables,
+			selectedTable1,
+			selectedTable2,
+			onUpdateTable,
+			setSelectedTable1,
+			setSelectedTable2,
+			setCartesianProductResult
+		);
+	};
+
 	return (
 		<Box p="4">
-			<Dialog>
-				<DialogTrigger asChild>
-					<Button variant="solid" color="blue">
-						Create New Table
-					</Button>
-				</DialogTrigger>
-				<DialogContent
-					style={{
-						backgroundColor: "white",
-						padding: "20px",
-						borderRadius: "8px",
-						maxWidth: "500px",
-						width: "100%",
-						position: "fixed",
-						top: "50%",
-						left: "50%",
-						transform: "translate(-50%, -50%)",
-						boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-						zIndex: 1000,
-					}}
-				>
-					<DialogTitle>Create a New Table</DialogTitle>
-					<ColumnEditor
-						columns={columns}
-						setColumns={setColumns}
-						onAddTable={onAddTable}
-					/>
-				</DialogContent>
-			</Dialog>
+			<CreateTableDialog
+				columns={columns}
+				setColumns={setColumns}
+				onAddTable={onAddTable}
+			/>
 
 			<hr style={{ margin: "20px 0" }} />
 
 			<Text as="h3" size="5">
 				Existing Tables
 			</Text>
+
 			{tables.length > 0 ? (
 				<>
-					<Flex gap="4">
-						<select
-							data-testid="selectTable1"
-							value={selectedTable1 || ""}
-							onChange={(e) => setSelectedTable1(e.target.value)}
-							style={{
-								padding: "8px",
-								borderRadius: "4px",
-								border: "1px solid #ccc",
-							}}
-						>
-							<option value="">Select Table 1</option>
-							{tables.map((table, index) => (
-								<option key={index} value={index}>
-									{table.name}
-								</option>
-							))}
-						</select>
+					<TableSelector
+						tables={tables}
+						selectedTable1={selectedTable1}
+						setSelectedTable1={setSelectedTable1}
+						selectedTable2={selectedTable2}
+						setSelectedTable2={setSelectedTable2}
+						handleCartesianProduct={handleCartesianProductClick}
+					/>
 
-						<select
-							data-testid="selectTable2"
-							value={selectedTable2 || ""}
-							onChange={(e) => setSelectedTable2(e.target.value)}
-							style={{
-								padding: "8px",
-								borderRadius: "4px",
-								border: "1px solid #ccc",
-							}}
-						>
-							<option value="">Select Table 2</option>
-							{tables.map((table, index) => (
-								<option key={index} value={index}>
-									{table.name}
-								</option>
-							))}
-						</select>
-
-						<Button
-							onClick={() =>
-								handleCartesianProduct(
-									tables,
-									selectedTable1,
-									selectedTable2,
-									onUpdateTable,
-									setSelectedTable1,
-									setSelectedTable2,
-									setCartesianProductResult
-								)
-							}
-							variant="solid"
-							color="blue"
-						>
-							Прямий добуток
-						</Button>
-					</Flex>
-
-					{cartesianProductResult && (
-						<Box mt="4">
-							<Text as="h4">{cartesianProductResult.name}</Text>
-							<TableList
-								tables={[cartesianProductResult]}
-								editRowInfo={editRowInfo}
-								handleRowChange={handleRowChange}
-								handleEditRow={handleEditRow}
-								handleSaveRow={handleSaveRow}
-								handleDeleteRow={handleDeleteRow}
-								handleAddRow={handleAddRow}
-								validationErrors={validationErrors}
-								onDeleteTable={onDeleteTable}
-							/>
-						</Box>
-					)}
+					<CartesianProductResult
+						cartesianProductResult={cartesianProductResult}
+					/>
 
 					<TableList
 						tables={tables}
