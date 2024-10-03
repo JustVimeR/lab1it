@@ -1,86 +1,110 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const fs = require('fs');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 const port = 3001;
-const DATABASE_FILE = './database.json';
+const DATABASE_FILE = path.join(__dirname, "database.json");
 
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/load-database', (req, res) => {
-    fs.readFile(DATABASE_FILE, 'utf-8', (err, data) => {
-        if (err) {
-            return res.status(500).json({ message: 'Error loading database' });
-        }
+// Helper function to read the database
+const readDatabase = () => {
+	try {
+		const data = fs.readFileSync(DATABASE_FILE, "utf-8");
+		return JSON.parse(data || '{"databases": []}');
+	} catch (err) {
+		throw new Error("Error reading the database file");
+	}
+};
 
-        let database;
-        try {
-            database = JSON.parse(data || '{"databases": []}');
-        } catch (error) {
-            return res.status(500).json({ message: 'Error parsing database JSON' });
-        }
+// Helper function to write the database
+const writeDatabase = (data) => {
+	try {
+		fs.writeFileSync(DATABASE_FILE, JSON.stringify(data, null, 2));
+	} catch (err) {
+		throw new Error("Error writing to the database file");
+	}
+};
 
-        res.status(200).json(database);
-    });
+// GET /databases - Get the list of all databases
+app.get("/databases", (req, res) => {
+	try {
+		const database = readDatabase();
+		res.status(200).json(database);
+	} catch (err) {
+		res.status(500).json({ message: err.message });
+	}
 });
 
-app.post('/add-database', (req, res) => {
-    const { name } = req.body;
-    fs.readFile(DATABASE_FILE, 'utf-8', (err, data) => {
-        if (err) {
-            return res.status(500).json({ message: 'Error reading database' });
-        }
+// POST /databases - Create a new database
+app.post("/databases", (req, res) => {
+	const { name } = req.body;
+	if (!name) {
+		return res.status(400).json({ message: "Database name is required" });
+	}
 
-        let database;
-        try {
-            database = JSON.parse(data || '{"databases": []}');
-        } catch (error) {
-            return res.status(500).json({ message: 'Error parsing database JSON' });
-        }
+	try {
+		const database = readDatabase();
+		database.databases.push({ name, tables: [] });
+		writeDatabase(database);
 
-        database.databases.push({ name, tables: [] });
-
-        fs.writeFile(DATABASE_FILE, JSON.stringify(database, null, 2), (err) => {
-            if (err) {
-                return res.status(500).json({ message: 'Error saving database' });
-            }
-            res.status(200).json({ message: 'Database added successfully' });
-        });
-    });
+		res.status(201).json({ message: "Database created successfully" });
+	} catch (err) {
+		res.status(500).json({ message: err.message });
+	}
 });
 
-app.post('/save-database', (req, res) => {
-    const { database } = req.body;
+// PUT /databases/:name - Update an existing database
+app.put("/databases/:name", (req, res) => {
+	const { name } = req.params;
+	const { database: newDatabase } = req.body;
 
-    fs.readFile(DATABASE_FILE, 'utf-8', (err, data) => {
-        if (err) {
-            return res.status(500).json({ message: 'Error reading database' });
-        }
+	if (!newDatabase) {
+		return res.status(400).json({ message: "Database data is required" });
+	}
 
-        let dbData;
-        try {
-            dbData = JSON.parse(data || '{"databases": []}');
-        } catch (error) {
-            return res.status(500).json({ message: 'Error parsing database JSON' });
-        }
+	try {
+		const dbData = readDatabase();
+		const dbIndex = dbData.databases.findIndex((db) => db.name === name);
 
-        const dbIndex = dbData.databases.findIndex(db => db.name === database.name);
-        if (dbIndex !== -1) {
-            dbData.databases[dbIndex] = database;
-        }
+		if (dbIndex === -1) {
+			return res.status(404).json({ message: "Database not found" });
+		}
 
-        fs.writeFile(DATABASE_FILE, JSON.stringify(dbData, null, 2), (err) => {
-            if (err) {
-                return res.status(500).json({ message: 'Error saving database' });
-            }
-            res.status(200).json({ message: 'Database saved successfully' });
-        });
-    });
+		dbData.databases[dbIndex] = newDatabase;
+		writeDatabase(dbData);
+
+		res.status(200).json({ message: "Database updated successfully" });
+	} catch (err) {
+		res.status(500).json({ message: err.message });
+	}
+});
+
+// DELETE /databases/:name - Delete a database
+app.delete("/databases/:name", (req, res) => {
+	const { name } = req.params;
+
+	try {
+		const dbData = readDatabase();
+		const dbIndex = dbData.databases.findIndex((db) => db.name === name);
+
+		if (dbIndex === -1) {
+			return res.status(404).json({ message: "Database not found" });
+		}
+
+		dbData.databases.splice(dbIndex, 1);
+		writeDatabase(dbData);
+
+		res.status(200).json({ message: "Database deleted successfully" });
+	} catch (err) {
+		res.status(500).json({ message: err.message });
+	}
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+	console.log(`Server is running on port ${port}`);
 });
