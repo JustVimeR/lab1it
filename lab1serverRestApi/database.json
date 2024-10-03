@@ -1,326 +1,326 @@
 {
-  "databases": [
-    {
-      "name": "Database1",
-      "tables": [
-        {
-          "name": "Тест1",
-          "columns": [
-            {
-              "name": "ряд",
-              "type": "string"
-            },
-            {
-              "name": "циф",
-              "type": "integer"
-            },
-            {
-              "name": "рил",
-              "type": "real"
-            },
-            {
-              "name": "чар",
-              "type": "char"
-            }
-          ],
-          "rows": [
-            {
-              "ряд": "bhjnkhjk",
-              "циф": "532",
-              "рил": "2.123",
-              "чар": "f"
-            },
-            {
-              "ряд": "аааааааааа",
-              "циф": "124",
-              "рил": "1.1",
-              "чар": "п"
-            },
-            {
-              "ряд": "півфп",
-              "циф": "312",
-              "рил": "3.1",
-              "чар": "а"
-            }
-          ]
-        },
-        {
-          "name": "тест2",
-          "columns": [
-            {
-              "name": "dsfgdfsg",
-              "type": "char"
-            },
-            {
-              "name": "dsfgxzcbv",
-              "type": "string"
-            },
-            {
-              "name": "zxcvzxc",
-              "type": "real"
-            },
-            {
-              "name": "gsgad",
-              "type": "integer"
-            }
-          ],
-          "rows": [
-            {
-              "dsfgdfsg": "z",
-              "dsfgxzcbv": "asdgasa",
-              "zxcvzxc": "4.1",
-              "gsgad": "412"
-            },
-            {
-              "dsfgdfsg": "ч",
-              "dsfgxzcbv": "уецуе",
-              "zxcvzxc": "2.1",
-              "gsgad": "5235"
-            }
-          ]
-        },
-        {
-          "name": "тайм",
-          "columns": [
-            {
-              "name": "аіва",
-              "type": "date"
-            },
-            {
-              "name": "мчсмчс",
-              "type": "string"
-            }
-          ],
-          "rows": [
-            {
-              "аіва": "2024-09-17T21:00:00.000Z",
-              "мчсмчс": "ріврваі"
-            },
-            {
-              "аіва": "2024-09-10T21:00:00.000Z",
-              "мчсмчс": "пвіапвіа"
-            }
-          ]
-        },
-        {
-          "name": "Time int",
-          "columns": [
-            {
-              "name": "interval",
-              "type": "dateInvl"
-            },
-            {
-              "name": "date",
-              "type": "date"
-            },
-            {
-              "name": "Name",
-              "type": "string"
-            }
-          ],
-          "rows": [
-            {
-              "interval": {
-                "start": "2024-10-06T21:00:00.000Z",
-                "end": "2024-10-16T21:00:00.000Z"
-              },
-              "date": "2024-09-10T21:00:00.000Z",
-              "Name": "sgsdgsdg"
-            },
-            {
-              "interval": {
-                "start": "2024-09-22T21:00:00.000Z",
-                "end": "2024-10-04T21:00:00.000Z"
-              },
-              "date": "2024-08-31T21:00:00.000Z",
-              "Name": "sdfcnxcvncvxn"
-            }
-          ]
-        },
-        {
-          "name": "тест2_тайм_Прямий добуток",
-          "columns": [
-            {
-              "name": "тест2_dsfgdfsg",
-              "type": "char"
-            },
-            {
-              "name": "тест2_dsfgxzcbv",
-              "type": "string"
-            },
-            {
-              "name": "тест2_zxcvzxc",
-              "type": "real"
-            },
-            {
-              "name": "тест2_gsgad",
-              "type": "integer"
-            },
-            {
-              "name": "тайм_аіва",
-              "type": "date"
-            },
-            {
-              "name": "тайм_мчсмчс",
-              "type": "string"
-            }
-          ],
-          "rows": [
-            {
-              "тест2_dsfgdfsg": "z",
-              "тест2_dsfgxzcbv": "asdgasa",
-              "тест2_zxcvzxc": "4.1",
-              "тест2_gsgad": "412",
-              "тайм_аіва": "2024-09-17T21:00:00.000Z",
-              "тайм_мчсмчс": "ріврваі"
-            },
-            {
-              "тест2_dsfgdfsg": "z",
-              "тест2_dsfgxzcbv": "asdgasa",
-              "тест2_zxcvzxc": "4.1",
-              "тест2_gsgad": "412",
-              "тайм_аіва": "2024-09-10T21:00:00.000Z",
-              "тайм_мчсмчс": "пвіапвіа"
-            },
-            {
-              "тест2_dsfgdfsg": "ч",
-              "тест2_dsfgxzcbv": "уецуе",
-              "тест2_zxcvzxc": "2.1",
-              "тест2_gsgad": "5235",
-              "тайм_аіва": "2024-09-17T21:00:00.000Z",
-              "тайм_мчсмчс": "ріврваі"
-            },
-            {
-              "тест2_dsfgdfsg": "ч",
-              "тест2_dsfgxzcbv": "уецуе",
-              "тест2_zxcvzxc": "2.1",
-              "тест2_gsgad": "5235",
-              "тайм_аіва": "2024-09-10T21:00:00.000Z",
-              "тайм_мчсмчс": "пвіапвіа"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Database2",
-      "tables": [
-        {
-          "name": "іячсмч",
-          "columns": [
-            {
-              "name": "мячсмчя",
-              "type": "string"
-            },
-            {
-              "name": "ямчсмячсм",
-              "type": "integer"
-            }
-          ],
-          "rows": [
-            {
-              "мячсмчя": "ичсми",
-              "ямчсмячсм": "4234"
-            },
-            {
-              "мячсмчя": "gsdgsd",
-              "ямчсмячсм": "412"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Database 3",
-      "tables": [
-        {
-          "name": "testing 1",
-          "columns": [
-            {
-              "name": "xzbdfsg",
-              "type": "string"
-            },
-            {
-              "name": "gsdfg",
-              "type": "date"
-            },
-            {
-              "name": "fsafsda",
-              "type": "integer"
-            },
-            {
-              "name": "zxcvzxcv",
-              "type": "dateInvl"
-            }
-          ],
-          "rows": [
-            {
-              "xzbdfsg": "gsdfgs",
-              "gsdfg": "2311-12-31T22:00:00.000Z",
-              "fsafsda": "4231",
-              "zxcvzxcv": {
-                "start": "2024-09-08T21:00:00.000Z",
-                "end": "2024-09-19T21:00:00.000Z"
-              }
-            },
-            {
-              "xzbdfsg": "cbxvbcxvb",
-              "gsdfg": "2024-09-09T21:00:00.000Z",
-              "fsafsda": "422",
-              "zxcvzxcv": {
-                "start": "2024-09-22T21:00:00.000Z",
-                "end": "2024-09-22T21:00:00.000Z"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "fsdfsdf",
-      "tables": [
-        {
-          "name": "Test",
-          "columns": [
-            {
-              "name": "Name",
-              "type": "string"
-            },
-            {
-              "name": "Class",
-              "type": "integer"
-            },
-            {
-              "name": "Mark",
-              "type": "real"
-            },
-            {
-              "name": "Class",
-              "type": "char"
-            },
-            {
-              "name": "Date",
-              "type": "date"
-            },
-            {
-              "name": "DataInt",
-              "type": "dateInvl"
-            }
-          ],
-          "rows": [
-            {
-              "Name": "Yarik",
-              "Class": "523523",
-              "Mark": "3.123",
-              "Date": "2024-09-19T21:00:00.000Z",
-              "DataInt": {
-                "start": "2024-09-29T21:00:00.000Z",
-                "end": "2024-09-23T21:00:00.000Z"
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
+	"databases": [
+		{
+			"name": "Database1",
+			"tables": [
+				{
+					"name": "Тест1",
+					"columns": [
+						{
+							"name": "ряд",
+							"type": "string"
+						},
+						{
+							"name": "циф",
+							"type": "integer"
+						},
+						{
+							"name": "рил",
+							"type": "real"
+						},
+						{
+							"name": "чар",
+							"type": "char"
+						}
+					],
+					"rows": [
+						{
+							"ряд": "bhjnkhjk",
+							"циф": "532",
+							"рил": "2.123",
+							"чар": "f"
+						},
+						{
+							"ряд": "аааааааааа",
+							"циф": "124",
+							"рил": "1.1",
+							"чар": "п"
+						},
+						{
+							"ряд": "півфп",
+							"циф": "312",
+							"рил": "3.1",
+							"чар": "а"
+						}
+					]
+				},
+				{
+					"name": "тест2",
+					"columns": [
+						{
+							"name": "dsfgdfsg",
+							"type": "char"
+						},
+						{
+							"name": "dsfgxzcbv",
+							"type": "string"
+						},
+						{
+							"name": "zxcvzxc",
+							"type": "real"
+						},
+						{
+							"name": "gsgad",
+							"type": "integer"
+						}
+					],
+					"rows": [
+						{
+							"dsfgdfsg": "z",
+							"dsfgxzcbv": "asdgasa",
+							"zxcvzxc": "4.1",
+							"gsgad": "412"
+						},
+						{
+							"dsfgdfsg": "ч",
+							"dsfgxzcbv": "уецуе",
+							"zxcvzxc": "2.1",
+							"gsgad": "5235"
+						}
+					]
+				},
+				{
+					"name": "тайм",
+					"columns": [
+						{
+							"name": "аіва",
+							"type": "date"
+						},
+						{
+							"name": "мчсмчс",
+							"type": "string"
+						}
+					],
+					"rows": [
+						{
+							"аіва": "2024-09-17T21:00:00.000Z",
+							"мчсмчс": "ріврваі"
+						},
+						{
+							"аіва": "2024-09-10T21:00:00.000Z",
+							"мчсмчс": "пвіапвіа"
+						}
+					]
+				},
+				{
+					"name": "Time int",
+					"columns": [
+						{
+							"name": "interval",
+							"type": "dateInvl"
+						},
+						{
+							"name": "date",
+							"type": "date"
+						},
+						{
+							"name": "Name",
+							"type": "string"
+						}
+					],
+					"rows": [
+						{
+							"interval": {
+								"start": "2024-10-06T21:00:00.000Z",
+								"end": "2024-10-16T21:00:00.000Z"
+							},
+							"date": "2024-09-10T21:00:00.000Z",
+							"Name": "sgsdgsdg"
+						},
+						{
+							"interval": {
+								"start": "2024-09-22T21:00:00.000Z",
+								"end": "2024-10-04T21:00:00.000Z"
+							},
+							"date": "2024-08-31T21:00:00.000Z",
+							"Name": "sdfcnxcvncvxn"
+						}
+					]
+				},
+				{
+					"name": "тест2_тайм_Прямий добуток",
+					"columns": [
+						{
+							"name": "тест2_dsfgdfsg",
+							"type": "char"
+						},
+						{
+							"name": "тест2_dsfgxzcbv",
+							"type": "string"
+						},
+						{
+							"name": "тест2_zxcvzxc",
+							"type": "real"
+						},
+						{
+							"name": "тест2_gsgad",
+							"type": "integer"
+						},
+						{
+							"name": "тайм_аіва",
+							"type": "date"
+						},
+						{
+							"name": "тайм_мчсмчс",
+							"type": "string"
+						}
+					],
+					"rows": [
+						{
+							"тест2_dsfgdfsg": "z",
+							"тест2_dsfgxzcbv": "asdgasa",
+							"тест2_zxcvzxc": "4.1",
+							"тест2_gsgad": "412",
+							"тайм_аіва": "2024-09-17T21:00:00.000Z",
+							"тайм_мчсмчс": "ріврваі"
+						},
+						{
+							"тест2_dsfgdfsg": "z",
+							"тест2_dsfgxzcbv": "asdgasa",
+							"тест2_zxcvzxc": "4.1",
+							"тест2_gsgad": "412",
+							"тайм_аіва": "2024-09-10T21:00:00.000Z",
+							"тайм_мчсмчс": "пвіапвіа"
+						},
+						{
+							"тест2_dsfgdfsg": "ч",
+							"тест2_dsfgxzcbv": "уецуе",
+							"тест2_zxcvzxc": "2.1",
+							"тест2_gsgad": "5235",
+							"тайм_аіва": "2024-09-17T21:00:00.000Z",
+							"тайм_мчсмчс": "ріврваі"
+						},
+						{
+							"тест2_dsfgdfsg": "ч",
+							"тест2_dsfgxzcbv": "уецуе",
+							"тест2_zxcvzxc": "2.1",
+							"тест2_gsgad": "5235",
+							"тайм_аіва": "2024-09-10T21:00:00.000Z",
+							"тайм_мчсмчс": "пвіапвіа"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Database2",
+			"tables": [
+				{
+					"name": "іячсмч",
+					"columns": [
+						{
+							"name": "мячсмчя",
+							"type": "string"
+						},
+						{
+							"name": "ямчсмячсм",
+							"type": "integer"
+						}
+					],
+					"rows": [
+						{
+							"мячсмчя": "ичсми",
+							"ямчсмячсм": "4234"
+						},
+						{
+							"мячсмчя": "gsdgsd",
+							"ямчсмячсм": "412"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Database 3",
+			"tables": [
+				{
+					"name": "testing 1",
+					"columns": [
+						{
+							"name": "xzbdfsg",
+							"type": "string"
+						},
+						{
+							"name": "gsdfg",
+							"type": "date"
+						},
+						{
+							"name": "fsafsda",
+							"type": "integer"
+						},
+						{
+							"name": "zxcvzxcv",
+							"type": "dateInvl"
+						}
+					],
+					"rows": [
+						{
+							"xzbdfsg": "gsdfgs",
+							"gsdfg": "2311-12-31T22:00:00.000Z",
+							"fsafsda": "4231",
+							"zxcvzxcv": {
+								"start": "2024-09-08T21:00:00.000Z",
+								"end": "2024-09-19T21:00:00.000Z"
+							}
+						},
+						{
+							"xzbdfsg": "cbxvbcxvb",
+							"gsdfg": "2024-09-09T21:00:00.000Z",
+							"fsafsda": "422",
+							"zxcvzxcv": {
+								"start": "2024-09-22T21:00:00.000Z",
+								"end": "2024-09-22T21:00:00.000Z"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "fsdfsdf",
+			"tables": [
+				{
+					"name": "Test",
+					"columns": [
+						{
+							"name": "Name",
+							"type": "string"
+						},
+						{
+							"name": "Class",
+							"type": "integer"
+						},
+						{
+							"name": "Mark",
+							"type": "real"
+						},
+						{
+							"name": "Class",
+							"type": "char"
+						},
+						{
+							"name": "Date",
+							"type": "date"
+						},
+						{
+							"name": "DataInt",
+							"type": "dateInvl"
+						}
+					],
+					"rows": [
+						{
+							"Name": "Yarik",
+							"Class": "523523",
+							"Mark": "3.123",
+							"Date": "2024-09-19T21:00:00.000Z",
+							"DataInt": {
+								"start": "2024-09-29T21:00:00.000Z",
+								"end": "2024-09-23T21:00:00.000Z"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
 }
