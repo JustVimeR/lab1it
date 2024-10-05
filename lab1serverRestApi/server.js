@@ -11,7 +11,6 @@ const DATABASE_FILE = path.join(__dirname, "database.json");
 app.use(bodyParser.json());
 app.use(cors());
 
-// Helper function to read the database
 const readDatabase = () => {
 	try {
 		const data = fs.readFileSync(DATABASE_FILE, "utf-8");
@@ -21,7 +20,6 @@ const readDatabase = () => {
 	}
 };
 
-// Helper function to write the database
 const writeDatabase = (data) => {
 	try {
 		fs.writeFileSync(DATABASE_FILE, JSON.stringify(data, null, 2));
@@ -30,7 +28,6 @@ const writeDatabase = (data) => {
 	}
 };
 
-// GET /databases - Get the list of all databases
 app.get("/databases", (req, res) => {
 	try {
 		const database = readDatabase();
@@ -40,7 +37,6 @@ app.get("/databases", (req, res) => {
 	}
 });
 
-// POST /databases - Create a new database
 app.post("/databases", (req, res) => {
 	const { name } = req.body;
 	if (!name) {
@@ -58,7 +54,6 @@ app.post("/databases", (req, res) => {
 	}
 });
 
-// PUT /databases/:name - Update an existing database
 app.put("/databases/:name", (req, res) => {
 	const { name } = req.params;
 	const { database: newDatabase } = req.body;
@@ -84,7 +79,6 @@ app.put("/databases/:name", (req, res) => {
 	}
 });
 
-// DELETE /databases/:name - Delete a database
 app.delete("/databases/:name", (req, res) => {
 	const { name } = req.params;
 

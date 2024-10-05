@@ -63,6 +63,19 @@ const useDatabaseManager = () => {
 		saveDatabase(updatedDatabases[activeDatabaseIndex]);
 	};
 
+	const handleDeleteDatabase = async (name) => {
+		try {
+			await axios.delete(`http://localhost:3001/databases/${name}`);
+			const updatedDatabases = databases.filter((db) => db.name !== name);
+			setDatabases(updatedDatabases);
+			if (activeDatabaseIndex >= updatedDatabases.length) {
+				setActiveDatabaseIndex(updatedDatabases.length - 1);
+			}
+		} catch (error) {
+			console.error("Error deleting database:", error);
+		}
+	};
+
 	return {
 		databases,
 		activeDatabaseIndex,
@@ -71,6 +84,7 @@ const useDatabaseManager = () => {
 		handleAddTableToActiveDatabase,
 		handleDeleteTable,
 		handleUpdateTables,
+		handleDeleteDatabase,
 	};
 };
 
