@@ -28,10 +28,28 @@ const writeDatabase = (data) => {
 	}
 };
 
+const createDatabaseLinks = (name) => {
+	return {
+		self: { href: `/databases/${name}` },
+		update: { href: `/databases/${name}`, method: "PUT" },
+		delete: { href: `/databases/${name}`, method: "DELETE" },
+	};
+};
+
 app.get("/databases", (req, res) => {
 	try {
 		const database = readDatabase();
-		res.status(200).json(database);
+		const databasesWithLinks = database.databases.map((db) => ({
+			...db,
+			_links: createDatabaseLinks(db.name),
+		}));
+		res.status(200).json({
+			databases: databasesWithLinks,
+			_links: {
+				self: { href: "/databases" },
+				create: { href: "/databases", method: "POST" },
+			},
+		});
 	} catch (err) {
 		res.status(500).json({ message: err.message });
 	}
@@ -48,7 +66,10 @@ app.post("/databases", (req, res) => {
 		database.databases.push({ name, tables: [] });
 		writeDatabase(database);
 
-		res.status(201).json({ message: "Database created successfully" });
+		res.status(201).json({
+			message: "Database created successfully",
+			_links: createDatabaseLinks(name),
+		});
 	} catch (err) {
 		res.status(500).json({ message: err.message });
 	}
@@ -73,7 +94,10 @@ app.put("/databases/:name", (req, res) => {
 		dbData.databases[dbIndex] = newDatabase;
 		writeDatabase(dbData);
 
-		res.status(200).json({ message: "Database updated successfully" });
+		res.status(200).json({
+			message: "Database updated successfully",
+			_links: createDatabaseLinks(name),
+		});
 	} catch (err) {
 		res.status(500).json({ message: err.message });
 	}
@@ -93,7 +117,13 @@ app.delete("/databases/:name", (req, res) => {
 		dbData.databases.splice(dbIndex, 1);
 		writeDatabase(dbData);
 
-		res.status(200).json({ message: "Database deleted successfully" });
+		res.status(200).json({
+			message: "Database deleted successfully",
+			_links: {
+				self: { href: "/databases" },
+				create: { href: "/databases", method: "POST" },
+			},
+		});
 	} catch (err) {
 		res.status(500).json({ message: err.message });
 	}

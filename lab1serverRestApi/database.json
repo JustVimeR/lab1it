@@ -226,6 +226,40 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Database Test",
+      "tables": [
+        {
+          "name": "Testing for testing",
+          "columns": [
+            {
+              "name": "Student Name",
+              "type": "string"
+            },
+            {
+              "name": "Year",
+              "type": "integer"
+            },
+            {
+              "name": "Class",
+              "type": "real"
+            },
+            {
+              "name": "Exam date",
+              "type": "date"
+            }
+          ],
+          "rows": [
+            {
+              "Student Name": "Vlad",
+              "Year": "2003",
+              "Class": "1",
+              "Exam date": "2024-10-08T21:00:00.000Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
