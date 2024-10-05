@@ -6,15 +6,31 @@ function Header({
 	databases,
 	activeDatabaseIndex,
 	setActiveDatabaseIndex,
+	handleDeleteDatabase,
 }) {
 	const [dbName, setDbName] = useState("");
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [dbToDelete, setDbToDelete] = useState(null);
 
 	const handleCreateDatabase = () => {
 		if (dbName.trim() !== "") {
 			onCreateDatabase(dbName);
 			setDbName("");
 			setIsModalOpen(false);
+		}
+	};
+
+	const confirmDeleteDatabase = (name) => {
+		setDbToDelete(name);
+		setIsDeleteModalOpen(true);
+	};
+
+	const handleConfirmDelete = () => {
+		if (dbToDelete) {
+			handleDeleteDatabase(dbToDelete);
+			setIsDeleteModalOpen(false);
+			setDbToDelete(null);
 		}
 	};
 
@@ -28,13 +44,21 @@ function Header({
 				<Flex gap="8px">
 					{databases.length > 0 ? (
 						databases.map((db, index) => (
-							<Button
-								key={index}
-								variant={index === activeDatabaseIndex ? "solid" : "soft"}
-								onClick={() => setActiveDatabaseIndex(index)}
-							>
-								{db.name}
-							</Button>
+							<Flex key={index} gap="4px">
+								<Button
+									variant={index === activeDatabaseIndex ? "solid" : "soft"}
+									onClick={() => setActiveDatabaseIndex(index)}
+								>
+									{db.name}
+								</Button>
+								<Button
+									variant="outline"
+									color="red"
+									onClick={() => confirmDeleteDatabase(db.name)}
+								>
+									🗑️
+								</Button>
+							</Flex>
 						))
 					) : (
 						<p>No databases available</p>
@@ -100,6 +124,45 @@ function Header({
 								onPointerLeave={(e) =>
 									(e.target.style.backgroundColor = "#f44336")
 								}
+							>
+								Cancel
+							</Button>
+						</Flex>
+					</div>
+				</div>
+			)}
+
+			{isDeleteModalOpen && (
+				<div className="modal-overlay">
+					<div className="modal-content">
+						<h2>Confirm Delete</h2>
+						<p>Are you sure you want to delete the database "{dbToDelete}"?</p>
+						<Flex gap="8px" mt="10px">
+							<Button
+								onClick={handleConfirmDelete}
+								style={{
+									backgroundColor: "#f44336",
+									color: "white",
+									padding: "8px 16px",
+									borderRadius: "4px",
+									fontWeight: "bold",
+									cursor: "pointer",
+									border: "none",
+								}}
+							>
+								Confirm
+							</Button>
+							<Button
+								onClick={() => setIsDeleteModalOpen(false)}
+								style={{
+									backgroundColor: "#4CAF50",
+									color: "white",
+									padding: "8px 16px",
+									borderRadius: "4px",
+									fontWeight: "bold",
+									cursor: "pointer",
+									border: "none",
+								}}
 							>
 								Cancel
 							</Button>

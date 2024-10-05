@@ -275,52 +275,6 @@
           ]
         }
       ]
-    },
-    {
-      "name": "fsdfsdf",
-      "tables": [
-        {
-          "name": "Test",
-          "columns": [
-            {
-              "name": "Name",
-              "type": "string"
-            },
-            {
-              "name": "Class",
-              "type": "integer"
-            },
-            {
-              "name": "Mark",
-              "type": "real"
-            },
-            {
-              "name": "Class",
-              "type": "char"
-            },
-            {
-              "name": "Date",
-              "type": "date"
-            },
-            {
-              "name": "DataInt",
-              "type": "dateInvl"
-            }
-          ],
-          "rows": [
-            {
-              "Name": "Yarik",
-              "Class": "523523",
-              "Mark": "3.123",
-              "Date": "2024-09-19T21:00:00.000Z",
-              "DataInt": {
-                "start": "2024-09-29T21:00:00.000Z",
-                "end": "2024-09-23T21:00:00.000Z"
-              }
-            }
-          ]
-        }
-      ]
     }
   ]
 }
